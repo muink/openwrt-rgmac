@@ -24,7 +24,7 @@ PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/rgmac
+define Package/$(PKG_NAME)
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=A random MAC address generator
@@ -33,26 +33,13 @@ define Package/rgmac
 	PKGARCH:=all
 endef
 
-define Package/rgmac/conffiles
-endef
-
-define Package/rgmac/postinst
-#!/bin/sh
-rgmac -U
-endef
-
-define Package/rgmac/prerm
-#!/bin/sh
-rm -rf /usr/share/rgmac
-endef
-
 define Build/Configure
 endef
 
 define Build/Compile
 endef
 
-define Package/rgmac/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/share/rgmac
 	$(INSTALL_DIR) $(1)/usr/share/rgmac/Vendor
@@ -63,6 +50,19 @@ define Package/rgmac/install
 	$(SED) 's,VENDORDIR=.* # <--,VENDORDIR=/usr/share/rgmac/Vendor/,'           $(PKG_BUILD_DIR)/rgmac
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/rgmac $(1)/usr/bin/rgmac
 	$(CP) $(PKG_BUILD_DIR)/Vendor/* $(1)/usr/share/rgmac/Vendor/
+endef
+
+define Package/$(PKG_NAME)/conffiles
+endef
+
+define Package/$(PKG_NAME)/postinst
+#!/bin/sh
+rgmac -U
+endef
+
+define Package/$(PKG_NAME)/prerm
+#!/bin/sh
+rm -rf /usr/share/rgmac
 endef
 
 
