@@ -16,17 +16,17 @@ PKG_LICENSE_FILES:=LICENSE
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/muink/rgmac.git
-PKG_SOURCE_VERSION:=ec5f954372608eee466ba35908c8844243212a36
+PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	SECTION:=utils
-	CATEGORY:=Utilities
+	SECTION:=net
+	CATEGORY:=Network
 	TITLE:=A random MAC address generator
 	URL:=https://github.com/muink/rgmac
 	DEPENDS:=+bash +curl +coreutils-cksum +getopt
