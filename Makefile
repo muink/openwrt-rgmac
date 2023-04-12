@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020 muink
+# Copyright (C) 2020-2023 muink
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rgmac
 PKG_VERSION:=1.4.6
-PKG_RELEASE:=20221022
+PKG_RELEASE:=20230412
 
 PKG_MAINTAINER:=muink <hukk1996@gmail.com>
 PKG_LICENSE:=MIT
@@ -43,6 +43,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/share/rgmac
 	$(INSTALL_DIR) $(1)/usr/share/rgmac/Vendor
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(SED) 's,^\xEF\xBB\xBF,,g'                                                 $(PKG_BUILD_DIR)/Vendor/*
 	$(SED) 's,\x0D,,g'                                                          $(PKG_BUILD_DIR)/Vendor/*
 	$(SED) 's,WORKDIR=.* # <--,,'                                               $(PKG_BUILD_DIR)/rgmac
@@ -50,14 +51,13 @@ define Package/$(PKG_NAME)/install
 	$(SED) 's,VENDORDIR=.* # <--,VENDORDIR=/usr/share/rgmac/Vendor/,'           $(PKG_BUILD_DIR)/rgmac
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/rgmac $(1)/usr/bin/rgmac
 	$(CP) $(PKG_BUILD_DIR)/Vendor/* $(1)/usr/share/rgmac/Vendor/
+	$(INSTALL_BIN) ./uci-defaults $(1)/etc/uci-defaults/99_$(PKG_NAME)
 endef
 
 define Package/$(PKG_NAME)/conffiles
 endef
 
 define Package/$(PKG_NAME)/postinst
-#!/bin/sh
-rgmac -U
 endef
 
 define Package/$(PKG_NAME)/prerm
