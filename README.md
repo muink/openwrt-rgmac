@@ -7,6 +7,9 @@ This project is the software package of [rgmac][] running on OpenWrt/LEDE
 ## Dependencies
 `bash`, `curl`, `coreutils-cksum`, `getopt`
 
+## Releases
+You can find the prebuilt-ipks [here](https://fantastic-packages.github.io/packages/)
+
 ### Usage
 See [Source project][]
 
@@ -30,6 +33,9 @@ See [Source project][]
    # Start compiling
    make package/rgmac/compile V=99
    ```
+
+## Releases
+You can find the prebuilt-ipks [here](https://fantastic-packages.github.io/packages/)
 
 ## License
 MIT License
